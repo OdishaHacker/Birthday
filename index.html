@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Happy Birthday 🎂</title>
+<title>Happy Birthday 🎂 - Fixed & Refined</title>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -13,19 +13,22 @@ body{background:var(--deep);color:var(--cream);font-family:'Lato',sans-serif;ove
 
 #confetti-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999}
 
-/* INTRO */
-#intro{position:fixed;inset:0;z-index:9000;background:var(--deep);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 1.5s ease,visibility 1.5s ease;}
+/* INTRO (FIXED FOR MOBILE CLARITY) */
+#intro{position:fixed;inset:0;z-index:9000;background:var(--deep);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 1.5s ease,visibility 1.5s ease; padding: 20px;}
 #intro.hidden{opacity:0;visibility:hidden}
 .intro-text{font-family:'Great Vibes',cursive;font-size:clamp(3rem,12vw,7.5rem);background:linear-gradient(135deg,#f0c040,#fff,#f0c040);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 2s ease infinite alternate;text-align:center; filter: drop-shadow(0 0 20px #f0c04050);}
 @keyframes shimmer{from{filter:brightness(1)}to{filter:brightness(1.6)}}
-.intro-sub{font-size:1.1rem;color:#f0c04099;letter-spacing:0.5em;margin-top:15px;text-transform:uppercase; animation: fadeInUp 1s ease forwards 0.5s;}
-.play-btn{margin-top:50px;padding:18px 50px;border:2px solid var(--gold);background:transparent;color:var(--gold);font-family:'Lato',sans-serif;font-size:1.1rem;letter-spacing:0.3em;cursor:pointer;text-transform:uppercase;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);border-radius:3px; position: relative;}
-.play-btn:hover,.play-btn:active{background:var(--gold);color:var(--deep); transform: scale(1.05); box-shadow: 0 0 30px #f0c040aa;}
-.play-btn::after{content:''; position: absolute; inset:-10px; border:1px solid #f0c04050; border-radius:50px; opacity:0; animation: pulse 1s infinite;}
-.play-btn:active::after { opacity: 1; }
-@keyframes pulse { 100% { inset:-20px; opacity: 0; } }
 
-/* PARTICLES (bubbles/glow) */
+/* Fixed Subtitle - No wrapping */
+.intro-sub{font-size:clamp(0.6rem, 3vw, 1rem);color:#f0c04099;letter-spacing:0.3em;margin-top:15px;text-transform:uppercase; animation: fadeInUp 1s ease forwards 0.5s; text-align: center; white-space: nowrap;}
+
+/* Fixed Button - Premium Pill Shape & No wrapping */
+.play-btn{margin-top:50px;padding:16px 32px;border:1px solid rgba(240,192,64,0.5);background:rgba(240,192,64,0.05);color:var(--gold);font-family:'Lato',sans-serif;font-size:clamp(0.8rem, 3.5vw, 1rem);letter-spacing:0.15em;cursor:pointer;text-transform:uppercase;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);border-radius:50px; position: relative; white-space: nowrap; backdrop-filter: blur(5px); box-shadow: 0 0 15px rgba(240,192,64,0.05);}
+.play-btn:hover,.play-btn:active{background:var(--gold);color:var(--deep); transform: scale(1.05); box-shadow: 0 0 30px rgba(240,192,64,0.4);}
+.play-btn::after{content:''; position: absolute; inset:-5px; border:1px solid #f0c04030; border-radius:50px; opacity:0; transition: all 0.3s ease;}
+.play-btn:active::after { inset:-10px; opacity: 1; }
+
+/* PARTICLES */
 #particles{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
 .particle{position:absolute;border-radius:50%;animation:rise linear infinite;opacity:0;}
 @keyframes rise{0%{transform:translateY(100dvh) scale(0);opacity:0}10%{opacity:1}90%{opacity:0.5}100%{transform:translateY(-10dvh) scale(1.2);opacity:0}}
@@ -34,15 +37,15 @@ body{background:var(--deep);color:var(--cream);font-family:'Lato',sans-serif;ove
 .hero{position:relative;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:60px 20px; gap: 30px;}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,#f0c04015 0%,transparent 60%),radial-gradient(ellipse at 70% 40%,#ff6b6b10 0%,transparent 60%),#0d0500;z-index:0;}
 .hero-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center; width: 100%;}
-.badge{font-size:0.8rem;letter-spacing:0.5em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:8px 24px;margin-bottom:30px;opacity:0;animation:fadeUp 1s ease forwards 0.5s;}
+.badge{font-size:0.8rem;letter-spacing:0.5em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:8px 24px;border-radius:50px; margin-bottom:30px;opacity:0;animation:fadeUp 1s ease forwards 0.5s;}
 
-/* PHOTO FRAME - CLEAR BASE */
+/* PHOTO FRAME */
 .hero-frame{position:relative;width:min(300px,80vw);margin:0 auto 30px;opacity:0;animation:zoomIn 1.2s cubic-bezier(.17,.67,.36,1.3) forwards 0.8s;}
 @keyframes zoomIn{from{opacity:0;transform:scale(0.7) rotate(-3deg)}to{opacity:1;transform:scale(1) rotate(0deg)}}
 .hero-frame::before,.hero-frame::after{content:'';position:absolute;inset:-12px;border:1px solid var(--gold);opacity:0.6; z-index:-1;}
 .hero-frame::before{transform:rotate(4deg)}
 .hero-frame::after{transform:rotate(-4deg);inset:-20px;opacity:0.3}
-.hero-photo{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;filter:sepia(10%) saturate(1.2) brightness(1.05); border-radius: 2px;} /* Reduced initial sepia slightly for clarity */
+.hero-photo{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;filter:sepia(10%) saturate(1.2) brightness(1.05); border-radius: 2px;}
 .sparkle{position:absolute;color:var(--gold);font-size:1.5rem;animation:twinkle 1.8s ease-in-out infinite;}
 .sparkle:nth-child(1){top:-25px;left:15px;animation-delay:0s}
 .sparkle:nth-child(2){top:-18px;right:-10px;animation-delay:0.3s}
@@ -57,8 +60,6 @@ body{background:var(--deep);color:var(--cream);font-family:'Lato',sans-serif;ove
 .hero-wish{font-style:italic;font-size:clamp(1.1rem,2.8vw,1.4rem);font-weight:300;color:#f0c040bb;max-width:500px;line-height:1.8;opacity:0;animation:fadeUp 1s ease forwards 2.4s;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-
-/* Removed manual audio pill controls */
 
 .scroll-cue{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--gold);font-size:0.8rem;letter-spacing:0.4em;text-transform:uppercase;opacity:0;animation:fadeUp 1s ease forwards 3.2s;z-index:2;}
 .scroll-arrow{width: 20px; height: 20px; border-right: 2px solid var(--gold); border-bottom: 2px solid var(--gold); transform: rotate(45deg); animation: bounceArrow 1.8s ease infinite;}
@@ -85,14 +86,14 @@ body{background:var(--deep);color:var(--cream);font-family:'Lato',sans-serif;ove
 .film-item img{width:100%;height:100%;object-fit:cover;filter:sepia(15%);transition:all 0.5s ease; opacity: 0.8;}
 .film-item:hover img{filter:sepia(0%) saturate(1.2); opacity: 1; transform: scale(1.05);}
 
-/* MASONRY GALLERY - FIXED FOR CLARITY */
+/* MASONRY GALLERY */
 .masonry{columns:3;column-gap:16px;margin-top:60px;}
 @media(max-width:800px){.masonry{columns:2}}
 @media(max-width:480px){.masonry{columns:1}}
 .mason-item{break-inside:avoid;margin-bottom:16px;position:relative;overflow:hidden;border-radius:4px;opacity:0;transform:translateY(60px);transition:all 0.8s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 10px 20px rgba(0,0,0,0.5);}
 .mason-item.visible{opacity:1;transform:translateY(0)}
-.mason-item img{width:100%;display:block;filter:brightness(1.0);transition:all 0.6s ease; -webkit-backface-visibility: hidden; backface-visibility: hidden;} /* Baseline clarity ensured */
-.mason-item:hover img{filter:saturate(1.2);transform:scale(1.06)} /* Enhanced hover effects on clear base */
+.mason-item img{width:100%;display:block;filter:brightness(1.0);transition:all 0.6s ease; -webkit-backface-visibility: hidden; backface-visibility: hidden;}
+.mason-item:hover img{filter:saturate(1.2);transform:scale(1.06)} 
 .mason-overlay{position:absolute;inset:0;background:linear-gradient(to top,#0d0500aa 0%,transparent 50%);pointer-events:none;}
 .mason-label{position:absolute;bottom:15px;left:15px;right:15px;font-style:italic;font-size:1.1rem;color:var(--gold);opacity:0;transform:translateY(10px);transition:all 0.5s ease; text-shadow: 0 2px 5px rgba(0,0,0,0.7);}
 .mason-item:hover .mason-label{opacity:1;transform:translateY(0); transition-delay: 0.1s;}
@@ -120,7 +121,7 @@ body{background:var(--deep);color:var(--cream);font-family:'Lato',sans-serif;ove
 .emoji-burst span{display:inline-block;animation:popIn 0.6s cubic-bezier(.17,.67,.36,1.5) backwards}
 @keyframes popIn{from{opacity:0;transform:scale(0) rotate(-15deg)}to{opacity:1;transform:scale(1) rotate(0)}}
 
-/* Audio tag - Hidden. Plays only from startExperience on desktop/mobile. No UI. */
+/* Audio tag */
 #bg-audio { display: none; }
 
 </style>
@@ -238,29 +239,14 @@ body{background:var(--deep);color:var(--cream);font-family:'Lato',sans-serif;ove
 </section>
 
 <script>
-/* ══ WEB AUDIO ══
- * FIXED: Removed manual controls logic.
- * Simple logic triggered only by startExperience.
- */
 const audioEl = document.getElementById('bg-audio');
 
 function startExperience() {
   document.getElementById('intro').classList.add('hidden');
   launchConfetti();
-  // Try play audio - mobile requirement is user interaction, which this is.
-  audioEl.play().then(() => {
-    // Audio playing successfully. Manual controls are removed. silent main page.
-    console.log("Audio playing");
-  }).catch(e => {
-    console.log("Mobile autoplay requires interaction, or missing song.mp3:", e);
-    // On most modern browsers, the click will allow play to execute.
-    // If it fails, silent main page is still okay. controls are removed.
-  });
+  audioEl.play().catch(e => console.log(e));
 }
 
-/* Confetti logic - No UI controls reference */
-
-/* ══ CONFETTI ══ */
 const canvas = document.getElementById('confetti-canvas');
 const ctx2 = canvas.getContext('2d');
 let confettiPieces = [];
@@ -279,7 +265,6 @@ function launchConfetti() {
     });
   }
   animateConfetti();
-  // We keep confetti active after launch on main page. No removal timeout.
 }
 
 function animateConfetti() {
@@ -296,7 +281,6 @@ function animateConfetti() {
   else ctx2.clearRect(0,0,canvas.width,canvas.height);
 }
 
-/* ══ PARTICLES (floating annotations) ══ */
 const particlesDiv = document.getElementById('particles');
 const symbols = ['✦','★','♦','✿','❋','✸'];
 for (let i=0; i<35; i++) {
@@ -307,7 +291,6 @@ for (let i=0; i<35; i++) {
   particlesDiv.appendChild(p);
 }
 
-/* ══ SCROLL REVEAL ══ */
 const observer = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
 }, {threshold:0.15});
@@ -315,9 +298,7 @@ document.querySelectorAll('.mason-item').forEach((el,i)=>{
   el.style.transitionDelay=`${i*0.07}s`; observer.observe(el);
 });
 
-/* ══ CLICK BURST (Confetti only, no manual controls referenced) ══ */
 document.addEventListener('click', (e)=>{
-  // Only launch confetti on generic page clicks
   if (e.target.tagName === 'BUTTON' || e.target.closest('#intro')) return;
   const colors=['#f0c040','#ff6b6b','#6ec6ff','#fff'];
   for(let i=0;i<15;i++){
@@ -330,7 +311,7 @@ document.addEventListener('click', (e)=>{
       vy:Math.sin(angle)*(3+Math.random()*4)-2, opacity:1
     });
   }
-  if(confettiPieces.length < 100) animateConfetti(); // Prevent double animation loop.
+  if(confettiPieces.length < 100) animateConfetti();
 });
 </script>
 </body>
