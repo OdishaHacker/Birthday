@@ -40,7 +40,7 @@ audio{display:none}
 .sn.act,.sn:hover{background:var(--g);border-color:var(--g);transform:scale(1.6)}
 
 /* ============================================================ INTRO */
-#intro{position:fixed;inset:0;z-index:9000;background:var(--bg); /* Added background color here to fix the overlap */ display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;overflow:hidden;transition:opacity 1.8s var(--e1),visibility 1.8s}
+#intro{position:fixed;inset:0;z-index:9000;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;overflow:hidden;transition:opacity 1.8s var(--e1),visibility 1.8s}
 #intro.bye{opacity:0;visibility:hidden;pointer-events:none}
 .ilines{position:absolute;inset:0;pointer-events:none}
 .iline{position:absolute;left:0;height:1px;width:0;background:linear-gradient(90deg,transparent,rgba(212,168,83,.25),transparent);transition:width 2.4s var(--e1)}
@@ -96,21 +96,53 @@ audio{display:none}
 @media(max-width:920px){.hphoto-side{order:1}}
 @keyframes phR{from{opacity:0;transform:translateY(30px) scale(.93)}to{opacity:1;transform:none}}
 .photo-wr{position:relative;width:min(330px,72vw)}
-.photo-wr::before{content:'';position:absolute;inset:-18px;border:1px solid rgba(212,168,83,.18);pointer-events:none;z-index:1;transition:transform .7s var(--e1)}
-.photo-wr::after{content:'';position:absolute;inset:-34px;border:1px solid rgba(212,168,83,.06);pointer-events:none}
+
+/* --- NEW SPINNING AURA EFFECT --- */
+.spin-aura {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 140%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border: 1px dashed rgba(212, 168, 83, 0.4);
+  border-radius: 50%;
+  animation: spinSlow 20s linear infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+.spin-aura::before, .spin-aura::after {
+  content: '✦';
+  position: absolute;
+  color: var(--g);
+  font-size: 1.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  text-shadow: 0 0 12px var(--g);
+}
+.spin-aura::before { top: -14px; }
+.spin-aura::after { bottom: -14px; }
+@keyframes spinSlow {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+/* -------------------------------- */
+
+.photo-wr::before{content:'';position:absolute;inset:-18px;border:1px solid rgba(212,168,83,.18);pointer-events:none;z-index:3;transition:transform .7s var(--e1)}
+.photo-wr::after{content:'';position:absolute;inset:-34px;border:1px solid rgba(212,168,83,.06);pointer-events:none;z-index:3}
 .photo-wr:hover::before{transform:rotate(2.5deg)}
-.himg{width:100%;aspect-ratio:.72;object-fit:cover;display:block;filter:sepia(6%) brightness(1.03) saturate(1.12);background:var(--bg1)}
-.photo-light{position:absolute;inset:0;pointer-events:none;z-index:2;transition:background .15s;opacity:0;transition:opacity .3s}
+.himg{position:relative;z-index:2;width:100%;aspect-ratio:.72;object-fit:cover;display:block;filter:sepia(6%) brightness(1.03) saturate(1.12);background:var(--bg1)}
+.photo-light{position:absolute;inset:0;pointer-events:none;z-index:4;transition:background .15s;opacity:0;transition:opacity .3s}
 .photo-wr:hover .photo-light{opacity:1}
-.pcorn{position:absolute;pointer-events:none;z-index:3}
+.pcorn{position:absolute;pointer-events:none;z-index:5}
 .pcorn-tl{top:-1px;left:-1px}.pcorn-tr{top:-1px;right:-1px}.pcorn-bl{bottom:-1px;left:-1px}.pcorn-br{bottom:-1px;right:-1px}
 .pcorn::before,.pcorn::after{content:'';position:absolute;background:var(--g);opacity:.55}
 .pcorn-tl::before,.pcorn-tr::before{width:22px;height:1px;top:0}.pcorn-bl::before,.pcorn-br::before{width:22px;height:1px;bottom:0}
 .pcorn-tl::after,.pcorn-bl::after{width:1px;height:22px;left:0}.pcorn-tr::after,.pcorn-br::after{width:1px;height:22px;right:0}
-.orbit-wr{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:5}
+.orbit-wr{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:6}
 .orb-dot{position:absolute;border-radius:50%;animation:orb var(--od,6s) linear infinite}
 @keyframes orb{from{transform:rotate(0deg) translateX(var(--or,160px)) rotate(0deg)}to{transform:rotate(360deg) translateX(var(--or,160px)) rotate(-360deg)}}
-.pvtext{position:absolute;right:-38px;top:50%;transform:translateY(-50%) rotate(90deg);font-size:.45rem;letter-spacing:.75em;text-transform:uppercase;color:rgba(212,168,83,.25);white-space:nowrap}
+.pvtext{position:absolute;right:-38px;top:50%;transform:translateY(-50%) rotate(90deg);font-size:.45rem;letter-spacing:.75em;text-transform:uppercase;color:rgba(212,168,83,.25);white-space:nowrap;z-index:5}
 @media(max-width:920px){.pvtext{display:none}}
 
 /* ============================================================ SECTIONS */
@@ -259,6 +291,7 @@ audio{display:none}
   </div>
   <div class="hphoto-side">
     <div class="photo-wr" id="photoTilt">
+      <div class="spin-aura"></div>
       <div class="pcorn pcorn-tl"></div>
       <div class="pcorn pcorn-tr"></div>
       <div class="pcorn pcorn-bl"></div>
@@ -557,6 +590,20 @@ window.addEventListener('scroll',()=>{
     ticking=false;
   });ticking=true}
 },{passive:true});
+
+// ── SMART AUDIO CONTROL (PAUSE WHEN TAB MINIMIZED/HIDDEN)
+document.addEventListener("visibilitychange", () => {
+  const audio = document.getElementById("audio");
+  if (document.hidden) {
+    audio.pause();
+  } else {
+    // Only play if the intro screen has already been passed (is hidden)
+    if (document.getElementById('intro').classList.contains('bye')) {
+      audio.play().catch(()=>{});
+    }
+  }
+});
+
 </script>
 </body>
 </html>
